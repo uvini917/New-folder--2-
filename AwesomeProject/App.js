@@ -24,6 +24,8 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import tw from 'tailwind-react-native-classnames';
+import {KeyboardAvoidingView} from 'react-native';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -36,19 +38,23 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <SafeAreaProvider>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="HomeScreen"
-              component={HomeScreen}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="MapScreen"
-              component={MapScreen}
-              options={{headerShown: false}}
-            />
-            {/* <HomeScreen /> */}
-          </Stack.Navigator>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={0}
+            style={tw`flex-1`}>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="HomeScreen"
+                component={HomeScreen}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="MapScreen"
+                component={MapScreen}
+                options={{headerShown: false}}
+              />
+            </Stack.Navigator>
+          </KeyboardAvoidingView>
         </SafeAreaProvider>
       </NavigationContainer>
     </Provider>

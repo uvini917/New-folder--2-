@@ -7,11 +7,15 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import tw from 'twrnc';
+import tw from 'tailwind-react-native-classnames';
 
 import {Icon} from 'react-native-elements';
-// import FastBackwardOutlined from '@ant-design/icons';
+
 import {useNavigation} from '@react-navigation/native';
+
+import {useSelector} from 'react-redux';
+import {selectOrigin, setOrigin} from '../slices/navSlice';
+
 const data = [
   {
     id: '123',
@@ -29,6 +33,8 @@ const data = [
 
 const NavOptions = () => {
   const navigation = useNavigation();
+  const origin = useSelector(selectOrigin);
+
   return (
     <View>
       <FlatList
@@ -38,8 +44,9 @@ const NavOptions = () => {
         renderItem={({item}) => (
           <TouchableOpacity
             onPress={() => navigation.navigate(item.screen)}
-            style={tw`bg-gray-200 p-6 rounded-5 m-2`}>
-            <View>
+            style={tw`p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40`}
+            disabled={!origin}>
+            <View style={tw`${!origin && 'opacity-20'}`}>
               <Image
                 style={{
                   width: 100,
@@ -56,7 +63,6 @@ const NavOptions = () => {
               color="white"
               type="antdesign"
             />
-            {/* <FastBackwardOutlined /> */}
           </TouchableOpacity>
         )}
       />

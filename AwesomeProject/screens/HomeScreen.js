@@ -1,11 +1,12 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
-import tw from 'twrnc';
+import tw from 'tailwind-react-native-classnames';
 import NavOptions from '../components/NavOptions';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {GOOGLE_MAPS_APIKEY} from '@env';
 import {useDispatch} from 'react-redux';
 import {setDestination, setOrigin} from '../slices/navSlice';
+import NavFavourites from '../components/NavFavourites';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -33,7 +34,6 @@ const HomeScreen = () => {
           },
         }}
         onPress={(data, details = null) => {
-          console.log(setOrigin);
           dispatch(
             setOrigin({
               location: details.geometry.location,
@@ -55,6 +55,7 @@ const HomeScreen = () => {
         placeholder="Where From?"
       />
       <NavOptions />
+      <NavFavourites />
     </View>
   );
 };
